@@ -62,17 +62,23 @@
             border: 1px solid #9b59b6;
         }
         .services-header {
-            background-color: #3498db;
-            color: #fff;
+            background-color: #5c2d91;
+            color: #f7e653;
         }
         .services-table td {
             border: 1px solid #444;
+        }
+        .marquee {
+            background-color: #2a2a2a;
+            font-size: 11px;
+            color: #7ed321;
+            padding: 2px;
         }
     </style>
 </head>
 <body>
 
-<table width="600" border="0" cellpadding="0" cellspacing="0" align="center">
+<table style="width:100%; max-width:800px;" border="0" cellpadding="0" cellspacing="0" align="center">
     <tr>
         <td class="header">
             <b>pocketcereal</b>
@@ -92,6 +98,11 @@
         </td>
     </tr>
     <tr>
+        <td class="marquee">
+            <marquee scrollamount="3">now mobile friendly!</marquee>
+        </td>
+    </tr>
+    <tr>
         <td height="10"></td>
     </tr>
     <tr>
@@ -105,7 +116,7 @@
             <a name="services"></a>
             <b>services</b>
             <hr>
-            <table class="services-table" cellpadding="5" cellspacing="0">
+            <table class="services-table" cellpadding="5" cellspacing="0" width="100%">
                 <tr class="services-header">
                     <td><b>service</b></td>
                     <td><b>description</b></td>
@@ -137,8 +148,7 @@
     <tr>
         <td class="footer">
             <hr>
-            &copy; 2025 pocketcereal<br>
-            <font size="1">best viewed at 800x600</font>
+            &copy; 2025 pocketcereal
         </td>
     </tr>
 </table>
