@@ -1,157 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pocketcereal - software consultancy</title>
-    <style>
-        body {
-            font-family: "Times New Roman", Times, serif;
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 20px;
-        }
-        table {
-            border-collapse: collapse;
-        }
-        td {
-            padding: 8px;
-            vertical-align: top;
-        }
-        a {
-            color: #f7e653;
-        }
-        a:visited {
-            color: #f5a623;
-        }
-        a:hover {
-            color: #7ed321;
-        }
-        hr {
-            border: none;
-            border-top: 1px solid #444;
-        }
-        .header {
-            background-color: #e02d2d;
-            color: #FFFFFF;
-            padding: 10px;
-            font-size: 24px;
-        }
-        .nav {
-            background-color: #2a2a2a;
-            border: 2px solid #9b59b6;
-        }
-        .nav a {
-            color: #7ed321;
-        }
-        .content {
-            background-color: #252525;
-            border: 1px solid #444;
-            padding: 15px;
-        }
-        .content b {
-            color: #f5a623;
-        }
-        .footer {
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-        }
-        .services-table {
-            border: 1px solid #9b59b6;
-        }
-        .services-header {
-            background-color: #5c2d91;
-            color: #f7e653;
-        }
-        .services-table td {
-            border: 1px solid #444;
-        }
-        .marquee {
-            background-color: #2a2a2a;
-            font-size: 11px;
-            color: #7ed321;
-            padding: 2px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pocketcereal — audio discovery systems</title>
+<meta name="description" content="Independent software studio. A cross-platform audio player, a federated GraphQL API over open music and podcast sources, and inference systems that find structure inside media.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Martian+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E4E4DE;
+  --panel:#FAFAF7;
+  --ink:#111214;
+  --grey:#7C7E82;
+  --rule:#C6C6BF;
+  --signal:#F04A16;
+  --sans:"Archivo",system-ui,sans-serif;
+  --mono:"Martian Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+a{color:var(--ink)}
+a:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.mono{font-family:var(--mono);font-variant-ligatures:none}
+
+/* ── plate header ─────────────────────────── */
+.plate{border-bottom:2px solid var(--ink)}
+.plate .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 28px;padding:14px 24px}
+.plate .id{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.02em}
+.plate .id b{color:var(--signal);font-weight:500}
+.plate .meta{font-family:var(--mono);font-size:10.5px;color:var(--grey);letter-spacing:-.02em}
+.plate nav{margin-left:auto;display:flex;gap:18px;font-family:var(--mono);font-size:10.5px}
+.plate nav a{color:var(--grey);text-decoration:none;padding-bottom:1px;border-bottom:1px solid transparent}
+.plate nav a:hover{color:var(--signal);border-color:var(--signal)}
+
+/* ── statement ────────────────────────────── */
+.statement{padding:56px 0 8px}
+h1{
+  font-weight:800;font-size:clamp(2rem,5.4vw,3.5rem);line-height:1.04;
+  letter-spacing:-.035em;margin:0 0 22px;max-width:19ch;
+}
+h1 span{color:var(--signal)}
+.lede{font-size:clamp(1rem,1.7vw,1.12rem);color:#3A3C40;max-width:60ch;margin:0}
+.lede em{font-style:italic}
+
+/* ── signal flow diagram ──────────────────── */
+.flow{padding:38px 0 52px}
+.flow figure{margin:0}
+.flow svg{width:100%;height:auto;display:block}
+.flow figcaption{
+  font-family:var(--mono);font-size:10.5px;color:var(--grey);
+  margin-top:12px;letter-spacing:-.02em;
+}
+.blk{fill:var(--panel);stroke:var(--ink);stroke-width:1.25}
+.blk-hi{fill:#FDE8E0;stroke:var(--signal);stroke-width:1.25}
+.lbl{font-family:"Martian Mono",monospace;font-size:9px;font-weight:500;fill:var(--ink)}
+.sub{font-family:"Martian Mono",monospace;font-size:7.2px;fill:var(--grey)}
+.wire{stroke:var(--ink);stroke-width:1.25;fill:none}
+.wire-d{stroke:var(--grey);stroke-width:1;stroke-dasharray:3 3;fill:none}
+
+/* ── spec blocks ──────────────────────────── */
+.units{border-top:2px solid var(--ink)}
+.unit{border-bottom:1px solid var(--rule)}
+.unit .wrap{display:grid;grid-template-columns:1fr 340px;gap:0 48px;padding-top:38px;padding-bottom:38px;align-items:start}
+.unit:nth-child(even) .wrap{grid-template-columns:340px 1fr}
+.unit:nth-child(even) .body{order:2}
+.unit:nth-child(even) .shot{order:1}
+.unit h2{
+  font-weight:600;font-size:clamp(1.35rem,2.6vw,1.7rem);letter-spacing:-.025em;
+  margin:0 0 4px;
+}
+.code{font-family:var(--mono);font-size:10.5px;color:var(--signal);letter-spacing:-.02em;display:block;margin-bottom:9px}
+.unit p{margin:0;color:#3A3C40;max-width:56ch}
+.unit p em{font-style:normal;border-bottom:2px solid var(--signal);padding-bottom:1px}
+.links{margin:16px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:-.03em}
+.links a{color:var(--signal);text-decoration:none;border-bottom:1px solid rgba(240,74,22,.4);padding-bottom:1px}
+.links a:hover{border-color:var(--signal)}
+dl{margin:22px 0 0;max-width:56ch;font-family:var(--mono);font-size:10.5px;letter-spacing:-.02em}
+dl div{display:flex;gap:12px;padding:5px 0;border-bottom:1px dotted var(--rule);min-width:0}
+dl div:first-child{border-top:1px solid var(--ink);padding-top:8px}
+dt{flex:0 0 78px;color:var(--grey);text-transform:uppercase}
+dd{margin:0;color:var(--ink);min-width:0;overflow-wrap:anywhere}
+dd a{color:var(--signal)}
+
+/* ── image plate ──────────────────────────── */
+.shot{margin:0;position:relative;overflow:hidden;border:1px solid var(--ink);background:var(--panel);aspect-ratio:4/3}
+.shot-inner{position:absolute;inset:-8% 0;display:block;width:100%;height:116%;will-change:transform}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot svg{width:100%;height:100%;display:block}
+.shot figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:6px 10px;
+  font-family:var(--mono);font-size:9px;letter-spacing:-.02em;color:var(--grey);
+  background:rgba(250,250,247,.92);border-top:1px solid var(--rule);
+}
+.reg{stroke:var(--rule);stroke-width:1;fill:none}
+.regt{font-family:"Martian Mono",monospace;font-size:8px;fill:var(--grey)}
+
+/* ── I/O panel ────────────────────────────── */
+.io{border-top:2px solid var(--ink);padding:44px 0 0}
+.io h2{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:-.02em;margin:0 0 20px;color:var(--grey);text-transform:uppercase}
+.jacks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.jack{background:var(--panel);padding:18px 20px}
+.jack dfn{
+  display:block;font-family:var(--mono);font-size:9.5px;color:var(--grey);
+  text-transform:uppercase;letter-spacing:.02em;font-style:normal;margin-bottom:6px;
+}
+.jack a{font-family:var(--mono);font-size:12px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);letter-spacing:-.03em}
+.jack a:hover{color:var(--signal);border-color:var(--signal)}
+footer{padding:32px 0 48px}
+footer .wrap{font-family:var(--mono);font-size:10px;color:var(--grey);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:760px){
+  .unit .wrap{grid-template-columns:1fr;gap:24px}
+  dl div{flex-direction:column;gap:2px}
+  dt{flex:none}
+  .flow figcaption{font-size:9.5px}
+  .unit:nth-child(even) .wrap{grid-template-columns:1fr}
+  .unit:nth-child(even) .body,.unit:nth-child(even) .shot{order:0}
+  .plate nav{margin-left:0;width:100%}
+}
+</style>
 </head>
 <body>
 
-<table style="width:100%; max-width:800px;" border="0" cellpadding="0" cellspacing="0" align="center">
-    <tr>
-        <td class="header">
-            <b>pocketcereal</b>
-        </td>
-    </tr>
-    <tr>
-        <td class="nav">
-            <table border="0" cellpadding="5">
-                <tr>
-                    <td><a href="#about">about</a></td>
-                    <td style="color:#9b59b6">|</td>
-                    <td><a href="#services">services</a></td>
-                    <td style="color:#9b59b6">|</td>
-                    <td><a href="#contact">contact</a></td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td class="marquee">
-            <marquee scrollamount="3">now mobile friendly!</marquee>
-        </td>
-    </tr>
-    <tr>
-        <td height="10"></td>
-    </tr>
-    <tr>
-        <td class="content">
-            <a name="about"></a>
-            <b>about</b>
-            <hr>
-            <p>software consultancy. we build things.</p>
+<div class="plate">
+  <div class="wrap">
+    <span class="id mono">POCKET<b>CEREAL</b></span>
+    <span class="meta">AUDIO DISCOVERY SYSTEMS</span>
+    <span class="meta">REV 2026.07</span>
+    <nav>
+      <a href="#units">UNITS</a>
+      <a href="#io">CONTACT</a>
+      <a href="https://github.com/pocketcereal">GITHUB</a>
+    </nav>
+  </div>
+</div>
 
-            <br>
-            <a name="services"></a>
-            <b>services</b>
-            <hr>
-            <table class="services-table" cellpadding="5" cellspacing="0" width="100%">
-                <tr class="services-header">
-                    <td><b>service</b></td>
-                    <td><b>description</b></td>
-                </tr>
-                <tr>
-                    <td>development</td>
-                    <td>custom software solutions</td>
-                </tr>
-                <tr>
-                    <td>consulting</td>
-                    <td>technical guidance</td>
-                </tr>
-                <tr>
-                    <td>integration</td>
-                    <td>system connectivity</td>
-                </tr>
-            </table>
+<header class="statement">
+  <div class="wrap">
+    <h1>Audio sorted by <span>ideas</span>, not by metadata.</h1>
+    <p class="lede">Media tools sort by title, artist, and category — whatever happened to ship with the file. pocketcereal builds the other kind: a player that runs on three platforms, a federated API across open music and podcast archives, and inference that finds structure <em>inside</em> media rather than around it.</p>
+  </div>
+</header>
 
-            <br>
-            <a name="contact"></a>
-            <b>contact</b>
-            <hr>
-            <p>email: <a href="mailto:hello@pocketcereal.com">hello@pocketcereal.com</a></p>
-        </td>
-    </tr>
-    <tr>
-        <td height="10"></td>
-    </tr>
-    <tr>
-        <td class="footer">
-            <hr>
-            &copy; 2025 pocketcereal
-        </td>
-    </tr>
-</table>
+<section class="flow">
+  <div class="wrap">
+    <figure>
+      <svg viewBox="0 0 940 210" role="img" aria-label="Signal flow: five open archives feed the Spoons aggregation layer, which feeds the discovery API and the PocketCereal client. Media feeds the Cereal inference unit, which writes structured events back to the store.">
+        <defs>
+          <marker id="a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 0 L8 4 L0 8 z" fill="#111214"/>
+          </marker>
+        </defs>
 
+        <!-- archives -->
+        <rect class="blk" x="12" y="14" width="174" height="84"/>
+        <text class="lbl" x="24" y="34">OPEN ARCHIVES</text>
+        <text class="sub" x="24" y="50">MUSICBRAINZ · AUDIUS</text>
+        <text class="sub" x="24" y="62">JAMENDO · LIBRIVOX</text>
+        <text class="sub" x="24" y="74">PODCASTINDEX</text>
+        <text class="sub" x="24" y="90">5 SOURCES</text>
+
+        <line class="wire" x1="186" y1="56" x2="256" y2="56" marker-end="url(#a)"/>
+
+        <!-- spoons -->
+        <rect class="blk" x="262" y="14" width="108" height="84"/>
+        <text class="lbl" x="274" y="34">SPOONS</text>
+        <text class="sub" x="274" y="52">FAN-OUT</text>
+
+        <line class="wire" x1="370" y1="56" x2="430" y2="56" marker-end="url(#a)"/>
+
+        <!-- api -->
+        <rect class="blk" x="436" y="14" width="108" height="84"/>
+        <text class="lbl" x="448" y="34">API</text>
+        <text class="sub" x="448" y="52">SEARCH</text>
+
+        <line class="wire" x1="544" y1="56" x2="610" y2="56" marker-end="url(#a)"/>
+
+        <!-- client -->
+        <rect class="blk-hi" x="616" y="14" width="150" height="84"/>
+        <text class="lbl" x="628" y="34">POCKETCEREAL</text>
+        <text class="sub" x="628" y="50">IOS · ANDROID · WEB</text>
+        <text class="sub" x="628" y="62">BACKGROUND AUDIO</text>
+
+        <!-- inference branch -->
+        <rect class="blk" x="262" y="140" width="108" height="56"/>
+        <text class="lbl" x="274" y="160">MEDIA</text>
+        <text class="sub" x="274" y="176">STREAMS · FILES</text>
+
+        <line class="wire" x1="370" y1="168" x2="430" y2="168" marker-end="url(#a)"/>
+
+        <rect class="blk" x="436" y="140" width="150" height="56"/>
+        <text class="lbl" x="448" y="160">CEREAL</text>
+        <text class="sub" x="448" y="176">DETECT → EVIDENCE</text>
+
+        <path class="wire-d" d="M586 168 H700 V104" marker-end="url(#a)"/>
+        <text class="sub" x="600" y="186">STRUCTURED EVENTS</text>
+
+      </svg>
+      <figcaption>FIG. 1 — SIGNAL PATH. FIVE ARCHIVES NORMALIZE THROUGH ONE SCHEMA. INFERENCE RUNS ON A SEPARATE PATH AND WRITES BACK.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<main id="units" class="units">
+
+  <article class="unit">
+    <div class="wrap">
+      <div class="body">
+        <span class="code">UNIT SP-01 · AGGREGATION</span>
+        <h2>Spoons</h2>
+        <p>One GraphQL schema across music, podcasts, and audiobooks, fanning out to five open archives — MusicBrainz, Audius, Jamendo, PodcastIndex, and LibriVox. Ask a single source or all of them in one request; streaming links resolve per archive behind a normalized type, so nothing downstream needs to know where an item came from. <em>The schema is the product</em> — the hard part is agreeing what an artist, an episode, and a track are when five catalogues disagree.</p>
+        <p class="links"><a href="https://github.com/pocketcereal/spoons-api">github.com/pocketcereal/spoons-api</a></p>
+      </div>
+      <figure class="shot">
+        <span class="shot-inner">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Placeholder plate for Spoons">
+            <path class="reg" d="M14 14 h26 M14 14 v26 M386 14 h-26 M386 14 v26 M14 286 h26 M14 286 v-26 M386 286 h-26 M386 286 v-26"/>
+            <path class="reg" d="M200 128 v44 M178 150 h44"/>
+            <circle class="reg" cx="200" cy="150" r="30"/>
+            <text class="regt" x="200" y="212" text-anchor="middle">SP-01</text>
+          </svg>
+        </span>
+        <figcaption>PLATE SP-01 — PLACEHOLDER</figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <article class="unit">
+    <div class="wrap">
+      <div class="body">
+        <span class="code">UNIT PC-02 · CLIENT</span>
+        <h2>PocketCereal</h2>
+        <p>A music and podcast player built once and shipped to iOS, Android, and the web. Background playback with lock-screen transport, a queue that auto-advances, follow lists that sync, and history that picks up mid-episode. <em>Random mode drops you at a random position in a random episode</em> — discovery by accident, which turns out to beat another recommendation row.</p>
+      </div>
+      <figure class="shot">
+        <span class="shot-inner">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Placeholder plate for PocketCereal">
+            <path class="reg" d="M14 14 h26 M14 14 v26 M386 14 h-26 M386 14 v26 M14 286 h26 M14 286 v-26 M386 286 h-26 M386 286 v-26"/>
+            <path class="reg" d="M200 128 v44 M178 150 h44"/>
+            <circle class="reg" cx="200" cy="150" r="30"/>
+            <text class="regt" x="200" y="212" text-anchor="middle">PC-02</text>
+          </svg>
+        </span>
+        <figcaption>PLATE PC-02 — PLACEHOLDER</figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <article class="unit">
+    <div class="wrap">
+      <div class="body">
+        <span class="code">UNIT PC-03 · SERVICES</span>
+        <h2>Discovery API</h2>
+        <p>The search and discovery service behind the player. The specification is the source of truth for the contract, so the client is generated from the spec rather than from documentation that drifts a release behind the code.</p>
+      </div>
+      <figure class="shot">
+        <span class="shot-inner">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Placeholder plate for Discovery API">
+            <path class="reg" d="M14 14 h26 M14 14 v26 M386 14 h-26 M386 14 v26 M14 286 h26 M14 286 v-26 M386 286 h-26 M386 286 v-26"/>
+            <path class="reg" d="M200 128 v44 M178 150 h44"/>
+            <circle class="reg" cx="200" cy="150" r="30"/>
+            <text class="regt" x="200" y="212" text-anchor="middle">PC-03</text>
+          </svg>
+        </span>
+        <figcaption>PLATE PC-03 — PLACEHOLDER</figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <article class="unit">
+    <div class="wrap">
+      <div class="body">
+        <span class="code">UNIT CR-04 · INFERENCE</span>
+        <h2>Cereal</h2>
+        <p>A continuous monitor, and a testbed for how agents should be structured. Detection runs constantly over active sources and accumulates structured events <em>before any question is asked</em>. At query time an orchestrator composes narrow capabilities — detection lookup, object tracks, evidence retrieval, visual validation — so the expensive model validates one claim against one bounded window instead of streaming over everything. A claim cannot be made without evidence attached to it.</p>
+        <p class="links"><a href="https://github.com/pocketcereal/cereal">github.com/pocketcereal/cereal</a></p>
+      </div>
+      <figure class="shot">
+        <span class="shot-inner">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Placeholder plate for Cereal">
+            <path class="reg" d="M14 14 h26 M14 14 v26 M386 14 h-26 M386 14 v26 M14 286 h26 M14 286 v-26 M386 286 h-26 M386 286 v-26"/>
+            <path class="reg" d="M200 128 v44 M178 150 h44"/>
+            <circle class="reg" cx="200" cy="150" r="30"/>
+            <text class="regt" x="200" y="212" text-anchor="middle">CR-04</text>
+          </svg>
+        </span>
+        <figcaption>PLATE CR-04 — PLACEHOLDER</figcaption>
+      </figure>
+    </div>
+  </article>
+
+</main>
+
+<section id="io" class="io">
+  <div class="wrap">
+    <h2>Connections</h2>
+    <div class="jacks">
+      <div class="jack">
+        <dfn>Email</dfn>
+        <a href="mailto:contact@pocketcereal.com">contact@pocketcereal.com</a>
+      </div>
+      <div class="jack">
+        <dfn>Source</dfn>
+        <a href="https://github.com/pocketcereal">github.com/pocketcereal</a>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>POCKETCEREAL</span>
+    <span>INDEPENDENT SOFTWARE STUDIO</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var els=[].slice.call(document.querySelectorAll('.shot-inner')),ticking=false;
+  function place(){
+    var vh=window.innerHeight;
+    for(var i=0;i<els.length;i++){
+      var box=els[i].parentElement.getBoundingClientRect();
+      if(box.bottom<-200||box.top>vh+200)continue;
+      var p=(box.top+box.height/2-vh/2)/vh;      // -1 .. 1 across the viewport
+      els[i].style.transform='translate3d(0,'+(-p*16).toFixed(2)+'px,0)';
+    }
+    ticking=false;
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(place); } }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  place();
+})();
+</script>
 </body>
 </html>
